@@ -53,17 +53,27 @@ async function run() {
             res.send(result)
         })
 
-        /*======== Bookin Delete Api=========== */
+        /* ====== get my bookig========= */
+        app.get('/myBooking/:email', async (req, res) => {
+            const result = await coustomerBookingCollection.find({ email: req.params.email }).toArray();
+            res.send(result)
+        })
+
+        /* ====delete from mybooking api========*/
+        app.delete('/myBooking/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+            const result = await coustomerBookingCollection.deleteOne(query)
+            res.send(result)
+        })
+
+        /*========  Delete from bookingList Api=========== */
         app.delete('/bookingPlace/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const result = await coustomerBookingCollection.deleteOne(query)
-            // console.log('delete', id)
             res.send(result)
         })
-
-
-
 
 
     } finally {
